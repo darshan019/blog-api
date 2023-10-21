@@ -1,0 +1,46 @@
+
+POST http://localhost:3000/log-in
+Content-Type: application/json
+
+{
+  "username": "user4",
+  "password": "password4"
+}
+
+###
+
+POST http://localhost:3000/create-post
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTI3ZDcxYzkyZDJlMDhjOTI0YWExZDMiLCJpYXQiOjE2OTcxMDk4NjMsImV4cCI6MTY5NzExMDIyM30.H49XRBhrVsiH_w81u49ThT4dpICkH2Jp8KY6kDJxRmw
+Content-Type: application/json
+
+{ 
+  "title": "something new user4 post",
+  "content": "Lorem Ipsum idotor newum user4 post",
+  "summary": "Placeholder text user4 post",
+  "published": false
+}
+
+###
+
+GET http://localhost:3000/
+
+###
+
+POST http://localhost:3000/post/6527d79d92d2e08c924aa1d6/comment
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTI3ZDcxYzkyZDJlMDhjOTI0YWExZDMiLCJpYXQiOjE2OTcxMDk4NjMsImV4cCI6MTY5NzExMDIyM30.H49XRBhrVsiH_w81u49ThT4dpICkH2Jp8KY6kDJxRmw
+Content-Type: application/json
+
+{
+  "comment": "user4 test post"
+}
+
+###
+
+POST http://localhost:3000/sign-up
+Content-Type: application/json
+
+{
+  "username": "user4",
+  "password": "password4",
+  "confirm": "password4" 
+}
