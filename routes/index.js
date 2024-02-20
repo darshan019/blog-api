@@ -10,6 +10,7 @@ require("dotenv").config();
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
+    //if (req.user) console.log(req.user);
     const posts = await Posts.find({}).populate("author");
 
     const authHeader = req.headers["authorization"];
@@ -54,5 +55,7 @@ router.post(
 );
 
 router.get("/post/:id", userController.get_post);
+
+router.post("/post/delete/:id", authenticateToken, userController.delete_post);
 
 module.exports = router;

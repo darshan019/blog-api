@@ -5,6 +5,7 @@ const Comment = require("../models/comments");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const comments = require("../models/comments");
 
 exports.user_post = [
   body("title")
@@ -194,5 +195,26 @@ exports.get_post = [
       post: post,
       comments: commentsOnPost,
     });
+  }),
+];
+
+exports.delete_post = [
+  asyncHandler(async (req, res, next) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+    const u = await User.findById(req.user._id);
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_KEY, (err, user) => {
+      if (err) return res.sendStatus(403);
+      req.user = user;
+    });
+
+    if (u.isAdmin) {
+      await Posts.findByIdAndDelete(req.params.id);
+      await comments.deleteMany({ post: req.params.id });
+      res.send("Post deleted");
+    } else {
+      res.send("Only admin can delete a post");
+    }
   }),
 ];
